@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const EntryCard: FC<Props> = ({ entry }) => {
-  const { startDragging /*, endDragging*/ } = useContext(UIContext);
+  const { startDragging } = useContext(UIContext);
 
   const onDragStart = (event: DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setData("text", entry._id);
@@ -16,12 +16,7 @@ export const EntryCard: FC<Props> = ({ entry }) => {
     startDragging();
   };
 
-  // const onDragEnd = () => {
-  //   endDragging();
-  // };
-
   return (
-    // onDragEnd={onDragEnd}
     <Card sx={{ marginBottom: 1 }} draggable onDragStart={onDragStart}>
       <CardActionArea>
         <CardContent>
