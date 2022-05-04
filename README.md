@@ -11,10 +11,18 @@ docker-compose up -d
 MongoDB URL local:
 
 ```
-mongodb://localhost:27019/entriesdb
+MONGO_URL=mongodb://localhost:27019/entriesdb
 ```
 
-## Configurar las variables de entorno
+- Reconstruir los módulos de node
+
+```
+npm install
+npm run dev -- -p 3003
+```
+
+## Configurar las variables de entorno
+
 Renombrar el archivo **.env.example** a **.env**
 
 ## Llenar la base de datos con información de pruebas
