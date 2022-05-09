@@ -60,6 +60,25 @@ export const EntriesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     }
   };
 
+  const deleteEntry = async (_id: string) => {
+    try {
+      await entriesApi.delete(`/entries/${_id}`);
+
+      dispatch({ type: "[Entry] - Delete-Entry", payload: _id });
+
+      enqueueSnackbar("Entrada eliminada correctamente", {
+        variant: "success",
+        autoHideDuration: 1500,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "right",
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     refreshEntries();
   }, []);
@@ -72,6 +91,7 @@ export const EntriesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
         //Methods
         addNewEntry,
         updateEntry,
+        deleteEntry,
       }}
     >
       {children}

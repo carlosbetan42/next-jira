@@ -23,6 +23,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     case "GET":
       return getEntry(req, res);
 
+    case "DELETE":
+      return removeEntry(req, res);
+
     default:
       return res.status(400).json({ message: "Método no existe" });
   }
@@ -62,4 +65,19 @@ const getEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 
   res.status(200).json(entryInDb);
+};
+
+const removeEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  await db.connect();
+
+  const { id } = req.query;
+
+  try {
+    await Entry.findByIdAndRemove(id);
+    res.status(200).json({ message: "true" });
+  } catch (error: any) {
+    await db.disconnect();
+    console.log(error);
+    res.status(400).json({ message: error.errors.status.message });
+  }
 };
